@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<head></head>
+<body>
+    <script>
+        async function load(){
+          
+            let url = 'https://data.covid19india.org/data.json';
+            let myobj = await (await fetch(url)).json();
+            document.write(myobj["cases_time_series"][0]["date"]);
+            document.write(myobj["cases_time_series"].length);
+            document.write("<table border='1' width='100%'>");
+            let count = 0;
+            for(var i=0; i< myobj["cases_time_series"].length; i++){
+                if(myobj["cases_time_series"][i]["dailyconfirmed"] > 100000){
+                  
+
+                    document.write("<tr style='color:red'><td>"+(i+1)+"</td><td>"+(myobj["cases_time_series"][i]["date"])+"</td><td>"
+                +(myobj["cases_time_series"][i]["dailyconfirmed"])+"</td><td>"+(myobj["cases_time_series"][i]["dailyrecovered"])+
+                    "</td></tr>");
+                    count++;
+
+                }
+                else{
+                document.write("<tr><td>"+(i+1)+"</td><td>"+(myobj["cases_time_series"][i]["date"])+"</td><td>"
+                +(myobj["cases_time_series"][i]["dailyconfirmed"])+"</td><td>"+(myobj["cases_time_series"][i]["dailyrecovered"])+
+                    "</td></tr>");
+            }
+        }
+        
+        document.write("</table>");
+        document.write(count);
+        }
+        load();
+        </script>
+</body>
+</html>
